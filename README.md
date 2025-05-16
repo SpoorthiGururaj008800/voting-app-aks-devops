@@ -38,15 +38,7 @@ GitHub Repo → Azure DevOps CI Pipeline → Docker Image → Azure Container Re
 
 These are raw notes I made while implementing the pipeline from scratch. I’m including them here for authenticity and to help others who like to learn visually.
 
-### ✅ Trigger Logic, Jobs, Agent VM
-
-![CI Pipeline Notes Part 1](notes/IMG_2774.jpeg)
-
----
-
-### ✅ ArgoCD, GitOps, K8s Login
-
-![CI Pipeline Notes Part 2](notes/IMG_2778.jpeg)
+[DocScanner 16-May-2025 01-41 PM.pdf](https://github.com/user-attachments/files/20255250/DocScanner.16-May-2025.01-41.PM.pdf)
 
 ---
 
@@ -63,22 +55,17 @@ These are raw notes I made while implementing the pipeline from scratch. I’m i
 
 ---
 
-## 🧩 Future Improvements
 
-- Add YAML templates for reusability
-- Implement Helm for better K8s config management
-- Enable automatic rollback on failure
-
----
 
 ## 📎 References
 
 - [Azure Pipelines Documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/)
 - [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
+- https://github.com/iam-veeramalla/Azure-zero-to-hero/tree/main
 
 ---
 
 ## 🙋‍♀️ About Me
 
 I’m Spoorthi, a DevOps enthusiast transitioning from an Azure Cloud background.  
-You can connect with me on [LinkedIn](https://linkedin.com/in/yourprofile) or explore more on [GitHub](https://github.com/yourusername).
+You can connect with me on [LinkedIn](https://www.linkedin.com/in/spoorthi-gururaj-3362b416b/) or explore more on [GitHub](https://github.com/SpoorthiGururaj008800).
