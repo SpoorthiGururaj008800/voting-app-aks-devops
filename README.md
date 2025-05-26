@@ -1,36 +1,51 @@
-
 # 🧪 CI/CD Pipeline with Azure DevOps, AKS, and ArgoCD
 
-This project demonstrates end-to-end implementation of a CI/CD pipeline using Azure DevOps for CI and ArgoCD for CD to an AKS cluster. It includes my personal handwritten notes to showcase how I understood and built it.
+This project demonstrates an end-to-end implementation of a CI/CD pipeline using **Azure DevOps** for continuous integration and **ArgoCD** for GitOps-based continuous delivery into an **AKS (Azure Kubernetes Service)** cluster.
 
 ---
 
-## 📌 Project Overview
+## 📌 Overview
 
-- **CI**: Azure DevOps Pipeline  
-- **CD**: ArgoCD deployed in AKS  
-- **Orchestration**: Kubernetes  
-- **Infrastructure**: Azure VMs, AKS, Docker, GitHub
+- **CI Tool**: Azure DevOps Pipelines
+- **CD Tool**: ArgoCD
+- **Containerization**: Docker
+- **Orchestration**: Kubernetes (AKS)
+- **Infra**: Azure VM, Azure Container Registry (ACR), GitHub
+- **Personal Learning**: Includes my handwritten implementation notes ✍️
 
 ---
 
 ## ⚙️ Architecture
 
-```
-GitHub Repo → Azure DevOps CI Pipeline → Docker Image → Azure Container Registry (ACR)  
-→ ArgoCD in AKS → Kubernetes Deployment → App Live on Cluster
-```
+GitHub Repo 
+   ↓
+Azure DevOps CI Pipeline
+   ↓
+Docker Image
+   ↓
+Azure Container Registry (ACR)
+   ↓
+ArgoCD running in AKS
+   ↓
+Kubernetes Deployment
+   ↓
+Live App on AKS Cluster
 
 ---
 
-## 🚀 Features Implemented
+ 🚀Features Implemented :
+ 
+🔁 Path-based triggers for specific folders (vote, result)
 
-- Path-based trigger for specific code folders
-- Build and push Docker image to ACR
-- Agent VM for executing pipeline (due to free tier limitations)
-- Manual VM setup with Docker installation
-- ArgoCD setup in AKS
-- GitOps-based continuous deployment
+🐳 Docker image build and push to ACR
+
+🖥️ Used a manually created Azure VM as build agent (due to parallelism limitations)
+
+⚙️ Docker setup on Azure VM using shell script
+
+☸️ ArgoCD installation and setup in AKS for GitOps CD
+
+🔄 Continuous deployment from GitHub repo to AKS via ArgoCD
 
 ---
 
@@ -42,26 +57,34 @@ These are raw notes I made while implementing the pipeline from scratch. I’m i
 
 ---
 
-## 💻 Tech Stack
+💻 Tech Stack
 
-- Azure DevOps Pipelines
-- GitHub
-- Docker
-- Azure VM (Ubuntu)
-- Azure Container Registry (ACR)
-- Azure Kubernetes Service (AKS)
-- ArgoCD
-- Shell scripting
+Azure DevOps
+
+GitHub
+
+Docker
+
+Azure VM (Ubuntu)
+
+Azure Container Registry (ACR)
+
+Azure Kubernetes Service (AKS)
+
+ArgoCD
+
+Bash/Shell scripting
 
 ---
 
+📎 References & Credits
 
+https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops
 
-## 📎 References
+https://argo-cd.readthedocs.io/en/stable/
 
-- [Azure Pipelines Documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/)
-- [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
-- https://github.com/iam-veeramalla/Azure-zero-to-hero/tree/main
+https://github.com/iam-veeramalla/Azure-zero-to-hero/tree/main
+
 
 ---
 
