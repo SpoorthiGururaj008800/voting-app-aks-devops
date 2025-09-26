@@ -1,0 +1,34 @@
+trigger: none
+
+pool:
+  name: 'VA-new'
+
+stages:
+- stage: TerraformApply
+  jobs:
+  - job: Apply
+    steps:
+    - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: '1.7.0'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Init'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'votingappfinal123'
+        backendAzureRmResourceGroupName: 'rg-terraform-state'
+        backendAzureRmStorageAccountName: 'tftestatestorage008800'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'votingappfinal123'
+        arguments: '-auto-approve'
+
