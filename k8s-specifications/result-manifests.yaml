@@ -1,0 +1,43 @@
+# --- RESULT APP DEPLOYMENT (Visualization) ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: result
+  name: result
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - image: acrvotingappterraformnew.azurecr.io/resultapp:97
+        name: result
+        ports:
+        - containerPort: 80
+          name: result
+      imagePullSecrets:
+      - name: acr-secret
+
+# --- RESULT APP SERVICE (NodePort) ---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: result
+  name: result-service
+spec:
+  type: NodePort
+  ports:
+  - name: "result-service"
+    port: 8081
+    targetPort: 80
+    nodePort: 32131
+  selector:
+    app: result
