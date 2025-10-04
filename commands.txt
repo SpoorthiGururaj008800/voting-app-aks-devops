@@ -1,0 +1,66 @@
+# Clone and initial setup
+git clone https://github.com/dockersamples/example-voting-app.git .
+git remote set-url origin https://spoorthigt@dev.azure.com/cspoorthi68/Voting-app/_git/voting-app-final
+git push -u origin main
+
+# Working in Terraform folder
+cd voting-app-terraform
+git add .
+git commit -m "Add initial Terraform files"
+git push
+
+# Azure login and resource group setup
+az login --use-device-code
+az account set --subscription <subscription-id>
+az group create --name rg-tf-state --location eastus
+az storage account create --name tfstatestorage008800 --resource-group rg-tf-state --location eastus --sku Standard_LRS
+az storage container create --name tfstate --account-name tfstatestorage008800
+
+# Create Service Principal for AKS
+az ad sp create-for-rbac --name votingapp-spn --role Contributor --scopes /subscriptions/<subscription-id>
+
+# Azure Kubernetes Cluster and Container Registry provision (via Terraform)
+terraform init
+terraform plan
+terraform apply -auto-approve
+
+# Kubernetes config and namespace setup
+az aks get-credentials --resource-group rg-votingapp-terraform --name aks-votingapp-terraform --overwrite-existing
+kubectl create namespace votingappf
+
+# Deploy application manifests
+kubectl apply -f k8s-specifications/ -n votingappf
+
+# Create Docker registry secret for pulling images
+kubectl create secret docker-registry acr-secret --docker-server acrvotingappterraformnew.azurecr.io --docker-username acrvotingappterraformnew --docker-password <secret> -n votingappf
+
+# Deploy pods - vote, result, worker
+kubectl apply -f vote-deployment.yaml -n votingappf
+kubectl apply -f result-deployment.yaml -n votingappf
+kubectl apply -f worker-deployment.yaml -n votingappf
+
+# Restart deployments if needed
+kubectl rollout restart deployment/vote -n votingappf
+kubectl rollout restart deployment/result -n votingappf
+kubectl rollout restart deployment/worker -n votingappf
+
+# Install ArgoCD in Kubernetes
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Port-forward Prometheus and Grafana services for monitoring
+kubectl port-forward svc/prometheus-grafana 3000:80 -n monitoring
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+# Install Prometheus operator via Helm
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
+
+# Apply ServiceMonitor manifests for vote app metrics
+kubectl apply -f votingapp-servicemonitors.yaml
+
+# General kubectl status and logs for troubleshooting
+kubectl get pods -n votingappf
+kubectl logs <pod-name> -n votingappf
+
