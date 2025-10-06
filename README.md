@@ -1,73 +1,94 @@
+##Project: End-to-End DevOps Implementation on Azure Kubernetes Services(AKS) with GitOps and Monitoring
 
-## Project Overview
-
-This Voting App project showcases the implementation of a modern cloud-native CI/CD pipeline and GitOps deployment workflow. Using Terraform, Azure DevOps, ArgoCD, and Kubernetes on AKS, it demonstrates how to automate infrastructure provisioning, continuous integration, and reliable app delivery.
-The project emphasizes container orchestration, infrastructure as code, GitOps best practices, and monitoring strategy with Prometheus and Grafana.
-
-## My Contributions & Learnings
-
-- Designed and implemented Terraform script to provision Azure infrastructure including AKS, Storage, and Container Registry.  
-- Developed CI pipelines in Azure DevOps to build and push Docker images efficiently using a self-hosted Azure VM agent.  
-- Configured ArgoCD for declarative Kubernetes deployments using GitOps for automated and reliable app delivery.  
-- Troubleshot deployment and connectivity issues between Kubernetes services.  
-- Implemented monitoring with Prometheus and Grafana to observe application and cluster health.  
-- Gained hands-on experience with Helm charts, Git branching strategies, and Docker container best practices.  
-- Documented the process extensively with handwritten notes for personal learning and sharing.
-
-## Challenges & Troubleshooting
-
-Encountered and resolved Docker image build issues on the self-hosted Azure VM due to BuildKit incompatibilities by adjusting Docker daemon settings.
-
-Addressed inter-pod communication failures by setting correct environment variables and Kubernetes service types (ClusterIP, LoadBalancer).
-
-Implemented Prometheus ServiceMonitors to scrape custom app metrics, debugging label selectors and endpoint path configurations.
-
-Dealt with Azure-specific resource quotas and VM SKU limitations through Terraform variable customization and Azure portal checks.
-
-Ensured secure secret management and avoided storing sensitive information in plain text within Kubernetes manifests.
-
-Resolved critical Kubernetes YAML indentation errors in infrastructure manifests and debugged a "connection refused" error during the integration of the Prometheus monitoring service.
-
-Overcame fundamental Git file tracking issues related to special characters and empty folders, along with multiple YAML configuration bugs needed for applying manifests to the AKS cluster.
-
-Troubleshot both low-level configuration flaws (YAML) and high-level observability challenges (Prometheus) to ensure continuous integration was successful across all services.
+##Overview
+This project demonstrates a complete DevOps pipeline that provisions, deploys, and monitors a containerized microservices application—the popular Example Voting App, originally by Docker Inc. 
+The end-to-end automation—including infrastructure provisioning, CI/CD, GitOps integration, and monitoring—was independently implemented, configured, and customized on Microsoft Azure. 
+While the base app code is public, all DevOps details are self-built, following inspiration from tutorials such as Abhishek Veeramalla’s DevOps series.
 
 
+##Architecture Overview
 
-## Prometheus Vote App Scrape Failure
+![Architecture Diagram](docs/screenshots/Project-workflow.PNG)
 
-During deployment, Prometheus was unable to successfully scrape the Vote App metrics endpoint, resulting in target health status showing as DOWN with a "connection refused" error on port 8080.
+1. Infrastructure Layer
 
-The Vote App, implemented in Python Flask, may not have a dedicated /metrics endpoint or may not expose it on the expected port.
+##Terraform provisions:
 
-Kubernetes Service or Prometheus ServiceMonitor resource configurations may be targeting the wrong port or endpoint path.
+Azure Resource Group
 
-Despite this, Redis and Postgres exporters are successfully scraped, indicating the Prometheus stack itself is healthy.
+Azure Kubernetes Service (AKS) Cluster
 
-## Next Steps for Resolution:
+Azure Container Registry (ACR)
 
-Confirm and correct the Kubernetes Service and ServiceMonitor port and selector settings to match the metrics endpoint.
-
-Manually test through kubectl port-forward and curl/Wget to ensure the metrics endpoint is reachable.
-
-Update Kubernetes manifests and redeploy once the issue is fixed.
+Backend state securely stored in Azure Storage Account.
 
 
+2. CI/CD Layer
+
+##Azure Pipelines automates:
+
+Building Docker images for vote, result, and worker apps.
+
+Pushing images to ACR.
+
+Updating Kubernetes manifests with new image tags.
+
+ArgoCD provides GitOps:
+
+Continuously syncs manifests from GitHub to AKS.
 
 
-## Repository Structure
+3. Monitoring Layer
 
-- `infra/` — Terraform code for provisioning Azure resources like Resource Group, AKS, ACR, and Blob Storage for remote state  
-- `pipelines/` — Azure DevOps pipeline YAML files for infrastructure and app components  
-- `k8s-specifications/` — Kubernetes manifests for deployments, services, and monitoring ServiceMonitors  
-- `docs/screenshots/` — Images documenting pipeline runs, ArgoCD sync status, and monitoring dashboards
+##Prometheus and Grafana deployed on AKS for observability.
+
+System-level metrics (node, pod, exporter) are successfully scraped and visualized.
+
+Prometheus <-> vote app “connection refused” issue highlights pending configuration and service discovery adjustments.
+
+
+#Workflow Summary
+
+1. Developer commits code → GitHub repository.
+
+2. Azure Pipelines triggers build, pushes images to ACR.
+
+3. Updated manifests committed → ArgoCD detects and deploys to AKS.
+
+4. Prometheus + Grafana monitor workloads in (partial) real time.
 
 
 
-## Architecture Diagram
+##Tools & Technologies
 
-![End-to-end CI/CD Pipeline](docs/screenshots/Project-workflow.PNG)
+Layer       |  Tools Used         
+------------+---------------------
+IaC         |  Terraform          
+Cloud       |  Microsoft Azure    
+CI/CD       |  Azure Pipelines    
+GitOps      |  ArgoCD             
+Containers  |  Docker, Kubernetes 
+Monitoring  |  Prometheus, Grafana
+SCM         |  GitHub             
 
-This diagram depicts the full workflow from the GitHub repository through Azure DevOps CI pipelines, Docker image builds and push to Azure Container Registry, ArgoCD GitOps synchronization with the AKS cluster, and deployment of the vote, worker, result, Redis, and Postgres services, along with monitoring components.
+
+##References
+
+Base application: https://github.com/dockersamples/example-voting-app
+
+Tutorial inspiration: Abhishek Veeramalla – DevOps Projects Series (YouTube)
+
+Note: All infrastructure, automation, pipelines, and monitoring configuration in this repo are custom and original.
+
+
+##Future Enhancements
+
+
+1. Fix Prometheus “connection refused” for application metrics.
+
+2. Implement Prometheus Alertmanager for automated alerts.
+
+3. Extend Grafana dashboards for app-level performance metrics.
+
 
 
