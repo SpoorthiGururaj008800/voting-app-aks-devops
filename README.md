@@ -2,7 +2,7 @@
 
 📘 Overview
 
-This project demonstrates a complete DevOps pipeline that provisions, deploys, and monitors a containerized microservices application—the popular Example Voting App, originally by Docker Inc. 
+This project demonstrates a complete DevOps pipeline that provisions, deploys, and monitors a containerized microservices application—the popular Example Voting App.
 The end-to-end automation—including infrastructure provisioning, CI/CD, GitOps integration, and monitoring—was independently implemented, configured, and customized on Microsoft Azure. 
 While the base app code is public, all DevOps details are self-built, following inspiration from tutorials such as Abhishek Veeramalla’s DevOps series.
 
