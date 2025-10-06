@@ -16,7 +16,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: acrvotingappterraformnew.azurecr.io/resultapp:latest
+      - image: acrvotingappterraformnew.azurecr.io/result:latest
         name: result
         ports:
         - containerPort: 80
