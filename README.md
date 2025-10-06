@@ -66,7 +66,7 @@ Update Kubernetes manifests and redeploy once the issue is fixed.
 
 ## Architecture Diagram
 
-![End-to-end CI/CD Pipeline](docs/screenshots/project-workflow.png)
+![End-to-end CI/CD Pipeline](docs/screenshots/Project-workflow.PNG)
 
 This diagram depicts the full workflow from the GitHub repository through Azure DevOps CI pipelines, Docker image builds and push to Azure Container Registry, ArgoCD GitOps synchronization with the AKS cluster, and deployment of the vote, worker, result, Redis, and Postgres services, along with monitoring components.
 
