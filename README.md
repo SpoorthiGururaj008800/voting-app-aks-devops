@@ -63,6 +63,7 @@ Prometheus <-> vote app “connection refused” issue highlights pending config
 
 Layer       |  Tools Used         
 ------------+---------------------
+
 IaC         |  Terraform          
 Cloud       |  Microsoft Azure    
 CI/CD       |  Azure Pipelines    
