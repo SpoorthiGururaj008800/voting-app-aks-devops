@@ -60,17 +60,16 @@ Prometheus <-> vote app “connection refused” issue highlights pending config
 
 
 ##Tools & Technologies
-
-Layer       |  Tools Used         
+           
 ------------+---------------------
 
-IaC         |  Terraform          
-Cloud       |  Microsoft Azure    
-CI/CD       |  Azure Pipelines    
-GitOps      |  ArgoCD             
-Containers  |  Docker, Kubernetes 
-Monitoring  |  Prometheus, Grafana
-SCM         |  GitHub             
+1. IaC -  Terraform          
+2. Cloud -  Microsoft Azure    
+3. CI/CD  -  Azure Pipelines    
+4. GitOps  -  ArgoCD             
+5. Containers - Docker, Kubernetes 
+6. Monitoring - Prometheus, Grafana
+7. SCM -  GitHub             
 
 
 ##References
