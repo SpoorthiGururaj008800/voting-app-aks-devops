@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+  labels:
+    app: vote
+spec:
+  selector:
+    app: vote
+  ports:
+  - name: http-metrics
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vote-service-monitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: vote
+  endpoints:
+  - port: http-metrics
+    path: /metrics
+    interval: 30s
+
