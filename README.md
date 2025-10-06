@@ -1,8 +1,3 @@
-## Problem Statement
-
-Modern cloud-native applications require automated, reliable CI/CD pipelines to accelerate delivery and maintain high availability. This project addresses the challenge of building a scalable Voting App on AKS with a production-like workflow using industry-standard tools for infrastructure provisioning, continuous integration, and GitOps continuous delivery.
-It demonstrates how to leverage Azure DevOps, Terraform, and ArgoCD to create end-to-end automation from code commit to live deployment, reducing manual errors and deployment times.
-
 
 ## Project Overview
 
@@ -11,23 +6,21 @@ The project emphasizes container orchestration, infrastructure as code, GitOps b
 
 ## My Contributions & Learnings
 
-- Designed and implemented Terraform scripts to provision Azure infrastructure including AKS, Storage, and Container Registry.  
+- Designed and implemented Terraform script to provision Azure infrastructure including AKS, Storage, and Container Registry.  
 - Developed CI pipelines in Azure DevOps to build and push Docker images efficiently using a self-hosted Azure VM agent.  
 - Configured ArgoCD for declarative Kubernetes deployments using GitOps for automated and reliable app delivery.  
-- Troubleshot deployment and connectivity issues between Kubernetes services (vote, worker, result, redis, postgres).  
+- Troubleshot deployment and connectivity issues between Kubernetes services.  
 - Implemented monitoring with Prometheus and Grafana to observe application and cluster health.  
 - Gained hands-on experience with Helm charts, Git branching strategies, and Docker container best practices.  
 - Documented the process extensively with handwritten notes for personal learning and sharing.
 
 ## Challenges & Troubleshooting
 
-Managing stateful services like Redis and Postgres within AKS required careful configuration of persistent volumes and service discovery.
-
 Encountered and resolved Docker image build issues on the self-hosted Azure VM due to BuildKit incompatibilities by adjusting Docker daemon settings.
 
 Addressed inter-pod communication failures by setting correct environment variables and Kubernetes service types (ClusterIP, LoadBalancer).
 
-Implemented Prometheus ServiceMonitors to correctly scrape custom app metrics, debugging label selectors and endpoint path configurations.
+Implemented Prometheus ServiceMonitors to scrape custom app metrics, debugging label selectors and endpoint path configurations.
 
 Dealt with Azure-specific resource quotas and VM SKU limitations through Terraform variable customization and Azure portal checks.
 
@@ -73,7 +66,7 @@ Update Kubernetes manifests and redeploy once the issue is fixed.
 
 ## Architecture Diagram
 
-![End-to-end CI/CD Pipeline](docs/screenshots/votingapp_cicd_pipeline_diagram.png)
+![End-to-end CI/CD Pipeline](docs/screenshots/project-workflow.png)
 
 This diagram depicts the full workflow from the GitHub repository through Azure DevOps CI pipelines, Docker image builds and push to Azure Container Registry, ArgoCD GitOps synchronization with the AKS cluster, and deployment of the vote, worker, result, Redis, and Postgres services, along with monitoring components.
 
