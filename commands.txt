@@ -1,6 +1,6 @@
 # Clone and initial setup
 git clone https://github.com/dockersamples/example-voting-app.git .
-git remote set-url origin https://spoorthigt@dev.azure.com/cspoorthi68/Voting-app/_git/voting-app-final
+git remote set-url origin https://spoorthigt@dev.azure.com/Spoorthigt/Voting-app/_git/voting-app-final
 git push -u origin main
 
 # Working in Terraform folder
