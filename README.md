@@ -18,7 +18,9 @@ Monitoring Setup: Prometheus and Grafana deployment with node/pod metrics (app m
 
 Operational Focus: This isn't just a deployment demo—it includes real troubleshooting scenarios and documented failure recovery, proving job-ready DevOps skills.
 
-**My Contributions:** All infrastructure, automation, and operational work in this repository:
+**My Contributions:** 
+
+All infrastructure, automation, and operational work in this repository:
 
 **Infrastructure-as-Code (IaC)**  
 Terraform modules for Azure Resource Group, AKS Cluster, and ACR with remote state in Azure Storage.
